@@ -56,6 +56,64 @@ https://scattercode.co.uk/2013/11/18/spring-data-multiple-databases/
 JODA Time into JPA
 http://blog.netgloo.com/2015/04/06/spring-boot-using-joda-time-on-jpa-entity-with-hibernate/
 
+
+
+### JNDI for tomcat
+  <Resource name = "jdbc/boot1"
+        auth = "Container"
+        type = "javax.sql.DataSource"
+        driverClassName = "com.mysql.jdbc.Driver"
+        url = "jdbc:mysql://localhost:3306/bootsample"
+        factory = "org.apache.tomcat.jdbc.pool.DataSourceFactory"
+        username = "boot_user"
+        password = "boot_password"
+        maxTotal = "100"
+        maxIdle = "25"
+        minIdle = "5"
+        maxWaitMillis = "-1"
+        logAbandoned = "true"
+        defaultTransactionIsolation = "READ_COMMITTED"
+        removeAbandoned = "true"
+        removeAbandonedTimeout = "60"
+        abandonWhenPercentageFull = "50"
+        suspectTimeout = "60"
+        testOnBorrow = "true"
+        validationInterval = "34000"
+        validationQuery = "SELECT 1"
+        timeBetweenEvictionRunsMillis = "34000"
+        minEvictableIdleTimeMillis = "55000"
+        jdbcInterceptors = "StatementFinalizer;ConnectionState;ResetAbandonedTimer"
+    />
+
+
+   <Resource name = "jdbc/boot2"
+        auth = "Container"
+        type = "javax.sql.DataSource"
+        driverClassName = "com.mysql.jdbc.Driver"
+        url = "jdbc:mysql://localhost:3306/bootsample_secondary"
+        factory = "org.apache.tomcat.jdbc.pool.DataSourceFactory"
+        username = "boot2_user"
+        password = "boot2_password"
+        maxTotal = "100"
+        maxIdle = "25"
+        minIdle = "5"
+        maxWaitMillis = "-1"
+        logAbandoned = "true"
+        defaultTransactionIsolation = "READ_COMMITTED"
+        removeAbandoned = "true"
+        removeAbandonedTimeout = "60"
+        abandonWhenPercentageFull = "50"
+        suspectTimeout = "60"
+        testOnBorrow = "true"
+        validationInterval = "34000"
+        validationQuery = "SELECT 1"
+        timeBetweenEvictionRunsMillis = "34000"
+        minEvictableIdleTimeMillis = "55000"
+        jdbcInterceptors = "StatementFinalizer;ConnectionState;ResetAbandonedTimer"
+    />
+
+
+
 Spring Managed Hibernate Persistence Provider for Entity Listeners
 https://dzone.com/articles/spring-managed-hibernate
 
@@ -70,3 +128,7 @@ after startup
 Create a User class extending org.springframework.security.core.userdetails.UserDetails
 Create a UserDetailsService implementing org.springframework.security.core.userdetails.UserDetailsService
 Create util SecurityService to getCurrent User, isLogin check, reautneticate
+
+
+
+

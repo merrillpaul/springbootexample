@@ -85,3 +85,8 @@ config:
   servers:
     - prod.merrill.com
     - prod.shanya.com
+
+primaryDatasource:
+  jndiName: java:comp/env/jdbc/boot1
+secondaryDatasource:
+  jndiName: java:comp/env/jdbc/boot2
