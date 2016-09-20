@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EntityListeners
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.JoinColumn
@@ -59,13 +60,14 @@ class AppUser extends AbstractEntity {
 
 	boolean confirmed
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable
 			(
 					name = "appUserRoles",
 					joinColumns = [@JoinColumn(name = "userId", referencedColumnName = "id")],
 					inverseJoinColumns = [@JoinColumn(name = "roleId", referencedColumnName = "id")]
 			)
+	@Laz
 	List<AppRole> roles
 
 }
