@@ -1,0 +1,87 @@
+config:
+  appName: Test Spring Boot
+
+  description: THis is my first app whose name is ${config.appName}
+
+  servers:
+    - qa.qiactive.com
+    - tst.qiactive.com
+    - beta1.qiactive.com
+    - qiactive.com
+    - int.qiactive.com
+
+server:
+  port: 9090
+  serverHeader: P1Server
+  compression:
+    enabled: true
+
+spring:
+  profiles:
+    active: dev
+  groovy:
+    template:
+      cache: false
+
+  jpa:
+    properties:
+      hibernate:
+        physical_naming_strategy: hello.jpa.PhysicalNamingStrategyImpl
+
+
+logging:
+  level:
+    org.springframework.web: INFO
+
+primaryDatasource:
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/bootsample
+  username: boot_user
+  password: boot_password
+
+secondaryDatasource:
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/bootsample_secondary
+  username: boot2_user
+  password: boot2_password
+
+
+---
+spring:
+  profiles: dev
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+config:
+  servers:
+    - dev.com
+    - qi.com
+
+---
+spring:
+  profiles: staging
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+config:
+  appName: STAGING Spring Boot
+  servers:
+    - merrill.com
+    - shanya.com
+
+
+---
+spring:
+  profiles: prod
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+config:
+  appName: PROD Spring Boot
+  servers:
+    - prod.merrill.com
+    - prod.shanya.com

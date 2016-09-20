@@ -1,0 +1,93 @@
+def projectName = 'myproject'
+def projectVersion = "0.0.1-SNAPSHOT"
+
+buildscript {
+	repositories {
+		jcenter()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+		classpath("org.springframework:springloaded:1.2.5.RELEASE")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+jar {
+	baseName = projectName
+	version = projectVersion
+}
+
+war {
+	baseName = projectName
+	version = projectVersion
+}
+
+
+
+repositories {
+	jcenter()
+	maven { url "http://repo.spring.io/snapshot" }
+	maven { url "http://repo.spring.io/milestone" }
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.boot:spring-boot-starter-security")
+
+	// templates
+	compile('org.springframework.boot:spring-boot-starter-groovy-templates')
+
+	compile('org.codehaus.groovy:groovy-all:2.4.7')
+	//compile("org.springframework.boot:spring-boot-devtools")
+
+
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+
+	// data layer
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	// for joda dateime in JPA entities
+	compile("joda-time:joda-time")
+	//compile("org.jadira.usertype:usertype.core:4.0.0.GA")
+	// driver
+	compile('mysql:mysql-connector-java')
+	// for dev tools
+	compile('org.hsqldb:hsqldb')
+	compile 'org.apache.commons:commons-lang3:3.4'
+}
+
+// example to run it with staging prfile. look at application.yml
+task staging << {
+	println "@#@#@#@#@# RUNNING in STAGING MODE !!"
+	bootRun.getSystemProperties().put('spring.profiles.active', 'staging')
+}
+
+bootRun {
+	systemProperties = System.properties
+}
+
+// this is to bake the profile right into the war
+gradle.taskGraph.beforeTask { Task task ->
+	if (task.name == 'war') {
+		def providedProfile = System.getProperty('env')
+		if (providedProfile) {
+			println "@@@@ explicit SPRING profile = ${providedProfile} with project ${project} "
+			def applicationYml = file('build/resources/main/config/application.yml').text
+			applicationYml = applicationYml.replaceAll("active: dev", "active: ${providedProfile}")
+			file('build/resources/main/config/application.yml').write(applicationYml)
+		}
+	}
+}
+
+
+
