@@ -1,3 +1,6 @@
+## My Experiments on Spring Boot
+## This uses mysql, will use ng2 etc
+
 # gradle
 
 brew install gradle
