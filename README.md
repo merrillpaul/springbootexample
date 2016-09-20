@@ -59,6 +59,7 @@ http://blog.netgloo.com/2015/04/06/spring-boot-using-joda-time-on-jpa-entity-wit
 
 
 ### JNDI for tomcat
+```
   <Resource name = "jdbc/boot1"
         auth = "Container"
         type = "javax.sql.DataSource"
@@ -84,8 +85,9 @@ http://blog.netgloo.com/2015/04/06/spring-boot-using-joda-time-on-jpa-entity-wit
         minEvictableIdleTimeMillis = "55000"
         jdbcInterceptors = "StatementFinalizer;ConnectionState;ResetAbandonedTimer"
     />
-
-
+```
+and 
+```
    <Resource name = "jdbc/boot2"
         auth = "Container"
         type = "javax.sql.DataSource"
@@ -111,7 +113,7 @@ http://blog.netgloo.com/2015/04/06/spring-boot-using-joda-time-on-jpa-entity-wit
         minEvictableIdleTimeMillis = "55000"
         jdbcInterceptors = "StatementFinalizer;ConnectionState;ResetAbandonedTimer"
     />
-
+```
 
 
 Spring Managed Hibernate Persistence Provider for Entity Listeners
