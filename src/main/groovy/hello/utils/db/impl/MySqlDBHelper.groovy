@@ -11,7 +11,7 @@ import java.sql.Statement
  * Created by upaulm2 on 9/20/16.
  */
 @Component("mysqlHelper")
-class MySqlDBHelper implements DBHelper{
+class MySqlDBHelper implements DBHelper {
 	@Override
 	def cleanup(Connection connection) {
 		def dbName = connection.metaData.database
